@@ -33,21 +33,48 @@ export default function Gallery() {
 
   const handleNext = (e) => {
     e?.stopPropagation();
-    const nextIndex = (currentIndex + 1) % galleryImages.length;
-    setCurrentIndex(nextIndex);
-    setSelectedImage(galleryImages[nextIndex]);
+    const img = document.querySelector('.lightbox-image');
+    if (img) {
+      img.classList.add('sliding-out-left');
+      setTimeout(() => {
+        const nextIndex = (currentIndex + 1) % galleryImages.length;
+        setCurrentIndex(nextIndex);
+        setSelectedImage(galleryImages[nextIndex]);
+        img.classList.remove('sliding-out-left');
+        img.classList.add('sliding-in-right');
+        setTimeout(() => img.classList.remove('sliding-in-right'), 500);
+      }, 300);
+    }
   };
 
   const handlePrev = (e) => {
     e?.stopPropagation();
-    const prevIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
-    setCurrentIndex(prevIndex);
-    setSelectedImage(galleryImages[prevIndex]);
+    const img = document.querySelector('.lightbox-image');
+    if (img) {
+      img.classList.add('sliding-out-right');
+      setTimeout(() => {
+        const prevIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+        setCurrentIndex(prevIndex);
+        setSelectedImage(galleryImages[prevIndex]);
+        img.classList.remove('sliding-out-right');
+        img.classList.add('sliding-in-left');
+        setTimeout(() => img.classList.remove('sliding-in-left'), 500);
+      }, 300);
+    }
   };
 
   const handleClose = () => {
-    setSelectedImage(null);
-    document.body.style.overflow = 'unset';
+    const overlay = document.querySelector('.lightbox-overlay');
+    if (overlay) {
+      overlay.classList.add('closing');
+      setTimeout(() => {
+        setSelectedImage(null);
+        document.body.style.overflow = 'unset';
+      }, 300);
+    } else {
+      setSelectedImage(null);
+      document.body.style.overflow = 'unset';
+    }
   };
 
   useEffect(() => {
@@ -122,7 +149,7 @@ export default function Gallery() {
 
       {selectedImage && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm animate-overlayFadeIn"
+          className="lightbox-overlay fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm animate-overlayFadeIn"
           onClick={handleClose}
         >
           <div className="relative w-full h-full flex flex-col items-center justify-center p-4 sm:p-6" onClick={(e) => e.stopPropagation()}>
@@ -131,7 +158,7 @@ export default function Gallery() {
               <img
                 src={selectedImage.url.replace('w=800', 'w=1600')}
                 alt={selectedImage.title}
-                className="max-w-full max-h-[80vh] object-contain animate-imageFadeZoom rounded-xl shadow-2xl"
+                className="lightbox-image max-w-full max-h-[80vh] object-contain animate-imageFadeZoom rounded-xl shadow-2xl"
               />
             </div>
 
@@ -185,6 +212,17 @@ export default function Gallery() {
           }
         }
 
+        @keyframes overlayFadeOut {
+          from {
+            opacity: 1;
+            backdrop-filter: blur(4px);
+          }
+          to {
+            opacity: 0;
+            backdrop-filter: blur(0px);
+          }
+        }
+
         @keyframes imageFadeZoom {
           from {
             opacity: 0;
@@ -193,6 +231,50 @@ export default function Gallery() {
           to {
             opacity: 1;
             transform: scale(1) translateY(0);
+          }
+        }
+
+        @keyframes slideOutLeft {
+          from {
+            opacity: 1;
+            transform: translateX(0);
+          }
+          to {
+            opacity: 0;
+            transform: translateX(-100px);
+          }
+        }
+
+        @keyframes slideInRight {
+          from {
+            opacity: 0;
+            transform: translateX(100px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        @keyframes slideOutRight {
+          from {
+            opacity: 1;
+            transform: translateX(0);
+          }
+          to {
+            opacity: 0;
+            transform: translateX(100px);
+          }
+        }
+
+        @keyframes slideInLeft {
+          from {
+            opacity: 0;
+            transform: translateX(-100px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
           }
         }
 
@@ -264,8 +346,28 @@ export default function Gallery() {
           animation: overlayFadeIn 0.4s ease-out;
         }
 
+        .lightbox-overlay.closing {
+          animation: overlayFadeOut 0.3s ease-out forwards;
+        }
+
         .animate-imageFadeZoom {
           animation: imageFadeZoom 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .lightbox-image.sliding-out-left {
+          animation: slideOutLeft 0.3s ease-out forwards;
+        }
+
+        .lightbox-image.sliding-in-right {
+          animation: slideInRight 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .lightbox-image.sliding-out-right {
+          animation: slideOutRight 0.3s ease-out forwards;
+        }
+
+        .lightbox-image.sliding-in-left {
+          animation: slideInLeft 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         .animate-arrowSlideIn {
