@@ -33,48 +33,21 @@ export default function Gallery() {
 
   const handleNext = (e) => {
     e?.stopPropagation();
-    const img = document.querySelector('.lightbox-image');
-    if (img) {
-      img.classList.add('sliding-out-left');
-      setTimeout(() => {
-        const nextIndex = (currentIndex + 1) % galleryImages.length;
-        setCurrentIndex(nextIndex);
-        setSelectedImage(galleryImages[nextIndex]);
-        img.classList.remove('sliding-out-left');
-        img.classList.add('sliding-in-right');
-        setTimeout(() => img.classList.remove('sliding-in-right'), 500);
-      }, 300);
-    }
+    const nextIndex = (currentIndex + 1) % galleryImages.length;
+    setCurrentIndex(nextIndex);
+    setSelectedImage(galleryImages[nextIndex]);
   };
 
   const handlePrev = (e) => {
     e?.stopPropagation();
-    const img = document.querySelector('.lightbox-image');
-    if (img) {
-      img.classList.add('sliding-out-right');
-      setTimeout(() => {
-        const prevIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
-        setCurrentIndex(prevIndex);
-        setSelectedImage(galleryImages[prevIndex]);
-        img.classList.remove('sliding-out-right');
-        img.classList.add('sliding-in-left');
-        setTimeout(() => img.classList.remove('sliding-in-left'), 500);
-      }, 300);
-    }
+    const prevIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+    setCurrentIndex(prevIndex);
+    setSelectedImage(galleryImages[prevIndex]);
   };
 
   const handleClose = () => {
-    const overlay = document.querySelector('.lightbox-overlay');
-    if (overlay) {
-      overlay.classList.add('closing');
-      setTimeout(() => {
-        setSelectedImage(null);
-        document.body.style.overflow = 'unset';
-      }, 300);
-    } else {
-      setSelectedImage(null);
-      document.body.style.overflow = 'unset';
-    }
+    setSelectedImage(null);
+    document.body.style.overflow = 'unset';
   };
 
   useEffect(() => {
@@ -98,15 +71,15 @@ export default function Gallery() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white overflow-hidden">
+    <div className="min-h-screen bg-white">
       <div className="pt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-20">
 
-          <div className="text-center mb-12 sm:mb-20 animate-fadeInDown">
+          <div className="text-center mb-12 sm:mb-20">
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
               Our Expertise in Every Detail
             </h1>
-            <div className="w-20 h-1 bg-blue-600 mx-auto mb-6 animate-expandWidth"></div>
+            <div className="w-20 h-1 bg-blue-600 mx-auto mb-6"></div>
             <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed px-4">
               Explore our portfolio of metal fabrication projects and manufacturing capabilities
             </p>
@@ -149,7 +122,7 @@ export default function Gallery() {
 
       {selectedImage && (
         <div
-          className="lightbox-overlay fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm animate-overlayFadeIn"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-slate-900/95 via-slate-900/98 to-black/95 backdrop-blur-lg animate-fadeIn"
           onClick={handleClose}
         >
           <div className="relative w-full h-full flex flex-col items-center justify-center p-4 sm:p-6" onClick={(e) => e.stopPropagation()}>
@@ -158,14 +131,13 @@ export default function Gallery() {
               <img
                 src={selectedImage.url.replace('w=800', 'w=1600')}
                 alt={selectedImage.title}
-                className="lightbox-image max-w-full max-h-[80vh] object-contain animate-imageFadeZoom rounded-xl shadow-2xl"
+                className="max-w-full max-h-[80vh] object-contain animate-scaleIn rounded-xl shadow-2xl"
               />
             </div>
 
             <button
               onClick={handleClose}
-              className="absolute top-6 right-6 text-white hover:text-white/80 p-3 transition-all duration-300 hover:scale-110 active:scale-95 z-20 animate-buttonSlideIn"
-              style={{ animationDelay: '0.3s' }}
+              className="absolute top-6 right-6 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white p-3 transition-all duration-300 shadow-2xl hover:scale-110 active:scale-95 z-20 border border-white/20 hover:border-white/40 rounded-xl"
               aria-label="Close"
             >
               <X className="w-6 h-6" />
@@ -173,229 +145,68 @@ export default function Gallery() {
 
             <button
               onClick={handlePrev}
-              className="absolute left-4 sm:left-6 top-1/2 -translate-y-1/2 text-white hover:text-white/80 transition-all duration-300 hover:scale-125 active:scale-95 z-20 animate-arrowSlideIn group"
-              style={{ animationDelay: '0.2s' }}
+              className="absolute left-4 sm:left-6 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white p-3 sm:p-4 transition-all duration-300 shadow-2xl hover:scale-110 active:scale-95 z-20 border border-white/20 hover:border-white/40 rounded-xl"
               aria-label="Previous image"
             >
-              <ChevronLeft className="w-8 h-8 sm:w-10 sm:h-10 group-hover:drop-shadow-lg transition-all" />
+              <ChevronLeft className="w-6 h-6 sm:w-7 sm:h-7" />
             </button>
 
             <button
               onClick={handleNext}
-              className="absolute right-4 sm:right-6 top-1/2 -translate-y-1/2 text-white hover:text-white/80 transition-all duration-300 hover:scale-125 active:scale-95 z-20 animate-arrowSlideIn group"
-              style={{ animationDelay: '0.25s' }}
+              className="absolute right-4 sm:right-6 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white p-3 sm:p-4 transition-all duration-300 shadow-2xl hover:scale-110 active:scale-95 z-20 border border-white/20 hover:border-white/40 rounded-xl"
               aria-label="Next image"
             >
-              <ChevronRight className="w-8 h-8 sm:w-10 sm:h-10 group-hover:drop-shadow-lg transition-all" />
+              <ChevronRight className="w-6 h-6 sm:w-7 sm:h-7" />
             </button>
 
-            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 bg-white/10 backdrop-blur-md px-6 py-3 rounded-full shadow-2xl z-20 border border-white/20 hover:border-white/40 transition-all animate-counterSlideUp">
+            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 bg-white/10 backdrop-blur-md px-6 py-3 rounded-full shadow-2xl z-20 border border-white/20 hover:border-white/40 transition-colors">
               <p className="text-white text-sm font-medium">
                 {currentIndex + 1} <span className="text-white/60">of</span> {galleryImages.length}
               </p>
             </div>
 
-          
+            <div className="absolute bottom-8 right-8 flex gap-2 z-20">
+              <button
+                onClick={handlePrev}
+                className="text-white/60 hover:text-white transition-colors text-xs sm:text-sm font-medium px-3 py-1.5 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg hover:bg-white/20"
+              >
+                Prev
+              </button>
+              <button
+                onClick={handleNext}
+                className="text-white/60 hover:text-white transition-colors text-xs sm:text-sm font-medium px-3 py-1.5 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg hover:bg-white/20"
+              >
+                Next
+              </button>
+            </div>
           </div>
         </div>
       )}
 
       <style dangerouslySetInnerHTML={{ __html: `
-        @keyframes overlayFadeIn {
+        @keyframes fadeIn {
           from {
             opacity: 0;
-            backdrop-filter: blur(0px);
           }
           to {
             opacity: 1;
-            backdrop-filter: blur(4px);
           }
         }
-
-        @keyframes overlayFadeOut {
-          from {
-            opacity: 1;
-            backdrop-filter: blur(4px);
-          }
-          to {
-            opacity: 0;
-            backdrop-filter: blur(0px);
-          }
-        }
-
-        @keyframes imageFadeZoom {
+        @keyframes scaleIn {
           from {
             opacity: 0;
-            transform: scale(0.85) translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: scale(1) translateY(0);
-          }
-        }
-
-        @keyframes slideOutLeft {
-          from {
-            opacity: 1;
-            transform: translateX(0);
-          }
-          to {
-            opacity: 0;
-            transform: translateX(-100px);
-          }
-        }
-
-        @keyframes slideInRight {
-          from {
-            opacity: 0;
-            transform: translateX(100px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-
-        @keyframes slideOutRight {
-          from {
-            opacity: 1;
-            transform: translateX(0);
-          }
-          to {
-            opacity: 0;
-            transform: translateX(100px);
-          }
-        }
-
-        @keyframes slideInLeft {
-          from {
-            opacity: 0;
-            transform: translateX(-100px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-
-        @keyframes arrowSlideIn {
-          from {
-            opacity: 0;
-            transform: scale(0);
+            transform: scale(0.9);
           }
           to {
             opacity: 1;
             transform: scale(1);
           }
         }
-
-        @keyframes buttonSlideIn {
-          from {
-            opacity: 0;
-            transform: translateX(30px) translateY(-30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0) translateY(0);
-          }
+        .animate-fadeIn {
+          animation: fadeIn 0.2s ease-out;
         }
-
-        @keyframes counterSlideUp {
-          from {
-            opacity: 0;
-            transform: translateY(40px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes buttonsSlideUp {
-          from {
-            opacity: 0;
-            transform: translateY(40px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes fadeInDown {
-          from {
-            opacity: 0;
-            transform: translateY(-30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes expandWidth {
-          from {
-            width: 0;
-          }
-          to {
-            width: 80px;
-          }
-        }
-
-        .animate-overlayFadeIn {
-          animation: overlayFadeIn 0.4s ease-out;
-        }
-
-        .lightbox-overlay.closing {
-          animation: overlayFadeOut 0.3s ease-out forwards;
-        }
-
-        .animate-imageFadeZoom {
-          animation: imageFadeZoom 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        .lightbox-image.sliding-out-left {
-          animation: slideOutLeft 0.3s ease-out forwards;
-        }
-
-        .lightbox-image.sliding-in-right {
-          animation: slideInRight 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        .lightbox-image.sliding-out-right {
-          animation: slideOutRight 0.3s ease-out forwards;
-        }
-
-        .lightbox-image.sliding-in-left {
-          animation: slideInLeft 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        .animate-arrowSlideIn {
-          animation: arrowSlideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-          opacity: 0;
-        }
-
-        .animate-buttonSlideIn {
-          animation: buttonSlideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-          opacity: 0;
-        }
-
-        .animate-counterSlideUp {
-          animation: counterSlideUp 0.5s ease-out forwards;
-          opacity: 0;
-        }
-
-        .animate-buttonsSlideUp {
-          animation: buttonsSlideUp 0.5s ease-out forwards;
-          opacity: 0;
-        }
-
-        .animate-fadeInDown {
-          animation: fadeInDown 0.6s ease-out;
-        }
-
-        .animate-expandWidth {
-          animation: expandWidth 0.8s ease-out forwards;
+        .animate-scaleIn {
+          animation: scaleIn 0.3s ease-out;
         }
       `}} />
     </div>
