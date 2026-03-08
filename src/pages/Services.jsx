@@ -121,42 +121,46 @@ export default function Services() {
       </div>
 
       <div className="space-y-24">
-        {servicesData.map((service) => (
-          <div key={service.id} className="flex flex-col lg:flex-row items-center gap-12">
+        {servicesData.map((service, index) => (
+          <div key={service.id}>
+            <div className="flex flex-col lg:flex-row items-center gap-12">
 
-            <div className="lg:w-1/2 flex flex-col justify-center">
-              <h2 className="text-3xl font-bold text-gray-900 mb-2">{service.title}</h2>
-              <p className="text-gray-600 mb-6 leading-relaxed">
-                {service.description}
-              </p>
+              <div className="lg:w-1/2 flex flex-col justify-center">
+                <h2 className="text-3xl font-bold text-gray-900 mb-2">{service.title}</h2>
+                <p className="text-gray-600 mb-6 leading-relaxed">
+                  {service.description}
+                </p>
 
-              <div className="mb-8">
-                <h4 className="font-bold text-gray-900 mb-3">{t("keyHighlights")}</h4>
-                <ul className="space-y-3 text-gray-600">
-                  {service.bullets.map((bullet, index) => (
-                    <li key={index} className="flex items-start">
-                      <svg className="h-6 w-6 text-green-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                      </svg>
-                      <span>{bullet}</span>
-                    </li>
-                  ))}
-                </ul>
+                <div className="mb-8">
+                  <h4 className="font-bold text-gray-900 mb-3">{t("keyHighlights")}</h4>
+                  <ul className="space-y-3 text-gray-600">
+                    {service.bullets.map((bullet, index) => (
+                      <li key={index} className="flex items-start">
+                        <svg className="h-6 w-6 text-green-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span>{bullet}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
-            </div>
 
-            <div className="lg:w-1/2 w-full">
-              <img
-                src={service.imageUrl}
-                alt={service.title}
-                className="w-full h-[400px] object-cover rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300"
-              />
-            </div>
+              <div className="lg:w-1/2 w-full">
+                <img
+                  src={service.imageUrl}
+                  alt={service.title}
+                  className="w-full h-[400px] object-cover rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300"
+                />
+              </div>
 
+            </div>
+            {index < servicesData.length - 1 && (
+              <div className="h-0.5 bg-gradient-to-r from-transparent via-gray-300 to-transparent mt-24" />
+            )}
           </div>
         ))}
       </div>
-      <h></h>
     </div>
   );
 }
