@@ -156,7 +156,9 @@ export default function Services() {
 
             </div>
             {index < servicesData.length - 1 && (
-              <div className="h-0.5 bg-gradient-to-r from-transparent via-gray-300 to-transparent mt-24" />
+              <div className="relative mt-24 pt-24">
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-blue-400 to-transparent shadow-md" />
+              </div>
             )}
           </div>
         ))}
