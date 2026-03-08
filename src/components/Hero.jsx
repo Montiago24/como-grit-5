@@ -1,7 +1,7 @@
 import { ArrowRight, MessageSquare, Image as ImageIcon } from 'lucide-react';
 import { useTranslation } from "react-i18next";
 import { Link } from 'react-router-dom';
-import HomeHero from '../assets/homehero.jpg';
+import HomeHero from '../assets/homehero.webp';
 import Logo from '../assets/Logo.png'
 
 export default function Hero() {
@@ -33,7 +33,7 @@ export default function Hero() {
                 <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
                 
                 <MessageSquare className="w-5 h-5 text-blue-100" />
-                <span className="relative">{t("Contact Us")}</span>
+                <span className="relative">{t("contactUsBtn")}</span>
                 <ArrowRight className="relative w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
 
@@ -44,10 +44,10 @@ export default function Hero() {
               >
                 {/* Blue fill layer */}
                 <div className="absolute inset-0 bg-blue-600 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
-                
+
                 <ImageIcon className="relative w-5 h-5 group-hover:text-white transition-colors" />
                 <span className="relative group-hover:text-white transition-colors">
-                  {t("View Projects")}
+                  {t("viewProjects")}
                 </span>
                 <ArrowRight className="relative w-5 h-5 group-hover:translate-x-1 group-hover:text-white transition-all" />
               </Link>
