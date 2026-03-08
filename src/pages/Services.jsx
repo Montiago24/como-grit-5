@@ -156,7 +156,7 @@ export default function Services() {
 
             </div>
             {index < servicesData.length - 1 && (
-              <div className="my-12">
+         <div className="my-12">
   <div className="w-1/2 h-1 mx-auto bg-gradient-to-r from-transparent via-blue-500 to-transparent shadow-lg" />
 </div>
             )}
