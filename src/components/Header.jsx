@@ -1,7 +1,6 @@
 import { useState } from "react"
 import { Menu, X, ChevronDown } from "lucide-react"
-import { Link } from "react-router-dom"
-import { useTranslation } from "react-i18next"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import "flag-icons/css/flag-icons.min.css"
 import Logo from "../assets/Logo.png"
 
@@ -17,24 +16,44 @@ const languages = {
   de: "Deutsch"
 }
 
+const navLabels = {
+  en: { home: "Home", about: "About Us", services: "Services", gallery: "Gallery", contact: "Contact Us", construction: "Building Construction" },
+  de: { home: "Startseite", about: "Über uns", services: "Dienstleistungen", gallery: "Galerie", contact: "Kontakt", construction: "Hochbau" },
+  hr: { home: "Početna", about: "O nama", services: "Usluge", gallery: "Galerija", contact: "Kontakt", construction: "Izgradnja Zgrada" }
+}
+
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const location = useLocation()
+  const navigate = useNavigate()
 
-  const { t, i18n } = useTranslation()
+  // Extract current language from URL
+  const pathParts = location.pathname.split('/')
+  const currentLang = pathParts[1] && ['en', 'de', 'hr'].includes(pathParts[1]) ? pathParts[1] : 'en'
 
-  const currentLang = i18n.language ? i18n.language.split("-")[0] : "en"
+  // Extract current page from URL
+  const currentPage = pathParts[2] ? `/${pathParts[2]}` : '/'
 
   const navLinks = [
-    { path: "/", label: t("home") },
-    { path: "/about", label: t("aboutUs") },
-    { path: "/services", label: t("services") },
-    { path: "/gallery", label: t("gallery") },
-    { path: "/contact", label: t("contactUs") },
-    { path: "/construction", label: t("BuildingConstruction") }
+    { path: "/", label: "home" },
+    { path: "/about", label: "about" },
+    { path: "/services", label: "services" },
+    { path: "/gallery", label: "gallery" },
+    { path: "/contact", label: "contact" },
+    { path: "/construction", label: "construction" }
   ]
 
   const changeLanguage = (lang) => {
-    i18n.changeLanguage(lang)
+    const newPath = `/${lang}${currentPage === '/' ? '' : currentPage}`
+    navigate(newPath)
+    setMobileMenuOpen(false)
+  }
+
+  const getNavLink = (path) => {
+    if (path === '/') {
+      return `/${currentLang}`
+    }
+    return `/${currentLang}${path}`
   }
 
   return (
@@ -43,7 +62,7 @@ export default function Header() {
         <div className="flex items-center justify-between h-16">
 
           {/* Logo */}
-          <Link to="/" className="flex items-center">
+          <Link to={`/${currentLang}`} className="flex items-center">
             <img
               src={Logo}
               alt="COMO GRIT Logo"
@@ -56,11 +75,12 @@ export default function Header() {
 
             {navLinks.map((link) => {
               const isConstruction = link.path === "/construction"
+              const navLink = getNavLink(link.path)
 
               return (
                 <Link
                   key={link.path}
-                  to={link.path}
+                  to={navLink}
                   className={`font-semibold transition-all px-3 py-1 rounded
                   ${
                     isConstruction
@@ -68,7 +88,7 @@ export default function Header() {
                       : "text-slate-700 hover:text-blue-600"
                   }`}
                 >
-                  {link.label}
+                  {navLabels[currentLang][link.label]}
                 </Link>
               )
             })}
@@ -120,11 +140,12 @@ export default function Header() {
 
               {navLinks.map((link) => {
                 const isConstruction = link.path === "/construction"
+                const navLink = getNavLink(link.path)
 
                 return (
                   <Link
                     key={link.path}
-                    to={link.path}
+                    to={navLink}
                     onClick={() => setMobileMenuOpen(false)}
                     className={`text-left font-semibold py-2 transition-all rounded px-2
                     ${
@@ -133,7 +154,7 @@ export default function Header() {
                         : "text-slate-700 hover:text-blue-600"
                     }`}
                   >
-                    {link.label}
+                    {navLabels[currentLang][link.label]}
                   </Link>
                 )
               })}
