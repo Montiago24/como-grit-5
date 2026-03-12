@@ -60,7 +60,6 @@ export default function ContactUs() {
   const contactInfo = {
   address: "Rooseveltova 12, 21000 Split, Croatia",
   phones: [
-    "+385 99 500 157",
     "+385 99 500 1059",
     "+385 99 500 1038",
     "+385 99 500 1037",

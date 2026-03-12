@@ -2,14 +2,19 @@ import React from 'react';
 import { useTranslation } from "react-i18next";
 
 // Assets Imports
-import service1 from '../assets/service1.webp';
-import service2 from '../assets/service2.webp';
-import service3 from '../assets/service3.webp'
-import service4 from '../assets/service4.webp'
-import service5 from '../assets/service5.webp'
-import service6 from '../assets/service6.webp'
-import service9 from '../assets/service9.webp'
-import service10 from '../assets/service10.png'
+import image1 from '../assets/image1.webp'
+import image2 from '../assets/image2.webp'
+import image3 from '../assets/image3.webp'
+import image4 from '../assets/image4.webp'
+import image11 from '../assets/image11.webp'
+import image12 from '../assets/image12.webp'
+
+import image13 from '../assets/image13.webp';
+import image14 from '../assets/image14.webp'
+import image15 from '../assets/image15.webp'
+import image16 from '../assets/image16.webp'
+import image17 from '../assets/image20.webp'
+
 
 const Services = () => {
   const { t } = useTranslation();
@@ -18,52 +23,68 @@ const Services = () => {
     {
       id: "01.",
       title: t("metalConstruction"),
-      image: service1,
+      image: image13,
       className: "md:col-span-4 h-[450px]"
     },
     {
       id: "02.",
       title: t("metalMelting"),
-      image: service2,
+      image: image3,
       className: "md:col-span-8 h-[450px]"
     },
     {
       id: "03.",
       title: t("waterJetCutting"),
-      image: service3,
+      image: image15,
       className: "md:col-span-7 h-[500px]"
     },
     {
       id: "04.",
       title: t("laserCutting"),
-      image: service4,
+      image: image16,
       className: "md:col-span-5 h-[500px]"
     },
     {
       id: "05.",
       title: t("customMetalCutting"),
-      image: service5,
+      image: image14,
       className: "md:col-span-6 h-[550px]"
     },
     {
       id: "06.",
       title: t("metalCasting"),
-      image: service6,
+      image: image4,
       className: "md:col-span-6 h-[550px]"
     },
-  
-   
     {
       id: "07.",
       title: t("machiningToolsFabrication"),
-      image: service10,
+      image: image1,
       className: "md:col-span-8 h-[450px]"
     },
     {
       id: "08.",
       title: t("cncMachining"),
-      image: service9,
+      image: image2,
       className: "md:col-span-4 h-[450px]"
+    },
+    {
+      id: "09.",
+      title: t("aluminumProcessing"),
+      image: image11,
+      className: "md:col-span-8 h-[450px]"
+    },
+    {
+      id: "11.",
+      title: t("metalConcetrate"),
+      image: image12,
+className: "md:col-span-4 h-[450px]"
+    },
+    {
+      id: "12.",
+      title: t("CNCManufacturingAutoParts"),
+      image: image17,
+      className: "md:col-span-6 h-[550px]"
     },
   ];
 

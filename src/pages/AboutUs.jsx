@@ -3,10 +3,10 @@ import { ShieldCheck, Cpu, Clock, Check } from 'lucide-react';
 import { useTranslation } from "react-i18next";
 
 // Assets Imports
-import AboutHero from '../assets/abouthero.webp';
-import service4 from '../assets/service4.webp';
-import service5 from '../assets/service5.webp';
-import service6 from '../assets/service6.webp';
+import AboutHero from '../assets/image17.webp';
+import service1 from '../assets/image16.webp';
+import service2 from '../assets/image14.webp';
+import service3 from '../assets/image4.webp';
 
 const AboutUs = () => {
   const { t } = useTranslation();
@@ -16,19 +16,19 @@ const AboutUs = () => {
     {
       title: t("uncompromisingQuality"),
       description: t("uncompromisingQualityDesc"),
-      image: service4,
+      image: service1,
       icon: <ShieldCheck className="w-6 h-6 text-blue-600" />
     },
     {
       title: t("technicalExpertise"),
       description: t("technicalExpertiseDesc"),
-      image: service5,
+      image: service2,
       icon: <Cpu className="w-6 h-6 text-blue-600" />
     },
     {
       title: t("fastReliableDelivery"),
       description: t("fastReliableDeliveryDesc"),
-      image: service6,
+      image: service3,
       icon: <Clock className="w-6 h-6 text-blue-600" />
     }
   ];
@@ -49,27 +49,34 @@ const AboutUs = () => {
 
           {/* Our Story Section */}
           <div className="grid md:grid-cols-2 gap-12 mb-20">
-            <div>
-              <h2 className="text-3xl font-bold text-slate-900 mb-6">{t("aboutPageStory")}</h2>
+           <div>
+  <div className="flex items-center gap-3 mb-6">
+    <h2 className="text-3xl font-bold text-slate-900">
+      {t("aboutPageStory")}
+    </h2>
 
-              <div className="text-base text-slate-600 leading-7 space-y-4 mb-8">
-                <p>{t("aboutPageText1")}</p>
-                <p>{t("aboutPageText2")}</p>
-                <p>{t("aboutPageText3")}</p>
-              </div>
+    {/* Croatian Flag */}
+    <span className="fi fi-hr text-2xl"></span>
+  </div>
 
-              {/* 2x2 Tick Checkboxes */}
-              <div className="grid grid-cols-2 gap-y-4 gap-x-2">
-                {highlights.map((item) => (
-                  <div key={item} className="flex items-center gap-3">
-                    <div className="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center flex-shrink-0">
-                      <Check className="w-4 h-4 text-white" strokeWidth={4} />
-                    </div>
-                    <span className="text-slate-900 font-bold text-base">{item}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
+  <div className="text-base text-slate-600 leading-7 space-y-4 mb-8">
+    <p>{t("aboutPageText1")}</p>
+    <p>{t("aboutPageText2")}</p>
+    <p>{t("aboutPageText3")}</p>
+  </div>
+
+  {/* 2x2 Tick Checkboxes */}
+  <div className="grid grid-cols-2 gap-y-4 gap-x-2">
+    {highlights.map((item) => (
+      <div key={item} className="flex items-center gap-3">
+        <div className="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center flex-shrink-0">
+          <Check className="w-4 h-4 text-white" strokeWidth={4} />
+        </div>
+        <span className="text-slate-900 font-bold text-base">{item}</span>
+      </div>
+    ))}
+  </div>
+</div>
 
             <div className="bg-gradient-to-br from-slate-100 to-slate-50 rounded-lg p-6 flex flex-col justify-center">
               <div className="aspect-video bg-slate-300 rounded-lg flex items-center justify-center mb-6 overflow-hidden shadow-lg">
